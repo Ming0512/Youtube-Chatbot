@@ -217,4 +217,8 @@ __marimo__/
 # Streamlit
 .streamlit/secrets.toml
 
+
+# Virtual Environment
 myvenv/
+# Chroma vector database
+chroma_db/

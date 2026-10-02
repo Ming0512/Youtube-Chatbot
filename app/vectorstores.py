@@ -1,6 +1,6 @@
 from pathlib import Path
 from langchain_chroma import Chroma
-from app.embeddings import get_embedding
+from embeddings import get_embedding
 
 VECTORSTORE_DIR = Path("chroma_db")
 

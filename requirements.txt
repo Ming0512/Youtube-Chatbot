@@ -1,1 +1,16 @@
-langchian 
+fastapi
+uvicorn
+streamlit
+requests
+python-dotenv
+youtube-transcript-api
+
+langchain
+langchain-openai
+langchain-chroma
+langchain-text-splitters
+chromadb 
+
+openai
+pytest
+httpx

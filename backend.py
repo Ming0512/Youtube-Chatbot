@@ -81,7 +81,6 @@ def health():
 
 
 ################### Process Video #################
-
 @app.post("/process-video")
 def process_video(
     request: VideoRequest,

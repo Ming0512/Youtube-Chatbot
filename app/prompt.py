@@ -39,6 +39,7 @@ def get_rag_prompt():
     )
 
 
+
 def get_topic_prompt():
 
     return ChatPromptTemplate.from_messages(

@@ -2,7 +2,6 @@ import pytest
 
 from app.youtube import extract_video_id
 
-
 def test_extract_watch_url():
 
     url = (

@@ -119,7 +119,6 @@ if process_video:
                 st.error(
                     f"Could not process video: {exc}"
                 )
-
                 if exc.response is not None:
 
                     try:

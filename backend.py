@@ -68,14 +68,14 @@ class ChatRequest(BaseModel):
 def root():
 
     return {
-        "message": "YouTube Chatbot is running...."
+        "message": "YouTube Chatbot API is running"
     }
 
 @app.get("/health")
 def health():
 
     return {
-        "status": "OK"
+        "status": "ok"
     }
 
 

@@ -9,11 +9,6 @@ BACKEND_URL = os.getenv(
     "http://localhost:8000",
 )
 
-
-# -------------------------
-# Page Configuration
-# -------------------------
-
 st.set_page_config(
     page_title="YouTube Chatbot",
     page_icon="",
@@ -27,10 +22,6 @@ st.caption(
     "Chat with any YouTube video here"
 )
 
-
-# -------------------------
-# Session State
-# -------------------------
 
 if "session_id" not in st.session_state:
 
@@ -46,10 +37,7 @@ if "topics" not in st.session_state:
 
     st.session_state.topics = []
 
-
-# -------------------------
-# Process Video
-# -------------------------
+############ Process the video ##############################
 
 st.subheader(
     "🎬 Process YouTube Video"
@@ -81,10 +69,7 @@ with col2:
         use_container_width=True,
     )
 
-
-# -------------------------
-# Process Video Request
-# -------------------------
+####################### Process Video Request ###############################
 
 if process_video:
 
@@ -119,10 +104,8 @@ if process_video:
                     data["session_id"]
                 )
 
-                # Clear old conversation
                 st.session_state.messages = []
 
-                # Save topics
                 st.session_state.topics = (
                     data.get("topics", [])
                 )
@@ -158,9 +141,8 @@ if process_video:
                         )
 
 
-# -------------------------
-# Topics
-# -------------------------
+################# Topics Discussed ####################################
+
 
 if st.session_state.topics:
 
@@ -184,9 +166,7 @@ if st.session_state.topics:
         )
 
 
-# -------------------------
-# Chat Section
-# -------------------------
+######################### Chat Section ##############
 
 st.divider()
 
@@ -194,8 +174,6 @@ st.subheader(
     "Ask Something About The Video"
 )
 
-
-# Display conversation history
 for message in st.session_state.messages:
 
     with st.chat_message(
@@ -206,19 +184,14 @@ for message in st.session_state.messages:
             message["content"]
         )
 
-
-# -------------------------
-# Chat Input
-# -------------------------
+################### Chat Input #################
 
 question = st.chat_input(
     "➤ Ask something about the video..."
 )
 
 
-# -------------------------
-# Chat Request
-# -------------------------
+############################## Chat Request ##############
 
 if question:
 
@@ -230,20 +203,16 @@ if question:
 
     else:
 
-        # Save user message
         st.session_state.messages.append(
             {
                 "role": "user",
                 "content": question,
             }
         )
-
-        # Display user message
         with st.chat_message("user"):
 
             st.markdown(question)
 
-        # Assistant response
         with st.chat_message("assistant"):
 
             with st.spinner(
@@ -271,7 +240,6 @@ if question:
 
                     st.markdown(answer)
 
-                    # Save assistant message
                     st.session_state.messages.append(
                         {
                             "role": "assistant",

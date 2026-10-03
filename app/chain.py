@@ -65,11 +65,7 @@ def extract_topics(transcript):
 
     llm = get_llm()
 
-    chain = (
-        prompt
-        | llm
-        | StrOutputParser()
-    )
+    chain = prompt | llm | StrOutputParser()
 
     response = chain.invoke(
         {

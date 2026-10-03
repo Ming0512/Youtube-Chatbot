@@ -36,7 +36,6 @@ from app.chain import (
 
 load_dotenv()
 
-
 app = FastAPI(
     title="YouTube Chatbot API",
     version="1.0.0",
@@ -52,16 +51,10 @@ app.add_middleware(
 )
 
 
-# -------------------------
-# Active Sessions
-# -------------------------
+
+################ Active Sessions create
 
 sessions = {}
-
-
-# -------------------------
-# Request Models
-# -------------------------
 
 class VideoRequest(BaseModel):
     url: str
@@ -71,22 +64,12 @@ class ChatRequest(BaseModel):
     session_id: str
     question: str
 
-
-# -------------------------
-# Root
-# -------------------------
-
 @app.get("/")
 def root():
 
     return {
         "message": "YouTube Chatbot is running...."
     }
-
-
-# -------------------------
-# Health
-# -------------------------
 
 @app.get("/health")
 def health():
@@ -96,9 +79,8 @@ def health():
     }
 
 
-# -------------------------
-# Process Video
-# -------------------------
+
+################### Process Video #################
 
 @app.post("/process-video")
 def process_video(
@@ -107,43 +89,31 @@ def process_video(
 
     try:
 
-        # 1. Extract video ID
         video_id = extract_video_id(
             request.url
         )
 
-        # 2. Get transcript
         transcript = get_transcript(
             video_id
         )
-
-        # 3. Extract topics
         topics = extract_topics(
             transcript
         )
-
-        # 4. Split transcript
         documents = split_transcript(
             transcript
         )
-
-        # 5. Create vector store
         vectorstore = create_vectorstore(
             documents,
             video_id,
         )
-
-        # 6. Create retriever
         retriever = get_retriever(
             vectorstore
         )
 
-        # 7. Create session
         session_id = str(
             uuid4()
         )
 
-        # 8. Store session
         sessions[session_id] = {
 
             "video_id": video_id,
@@ -155,7 +125,6 @@ def process_video(
             "topics": topics,
         }
 
-        # 9. Return information
         return {
 
             "session_id": session_id,
@@ -182,9 +151,7 @@ def process_video(
         )
 
 
-# -------------------------
-# Chat
-# -------------------------
+########################### Chat ################
 
 @app.post("/chat")
 def chat(
@@ -209,18 +176,13 @@ def chat(
     try:
 
         history = session["history"]
-
-        # Generate answer
         answer = answer_question(
 
             retriever=session["retriever"],
-
             history=history,
-
             question=request.question,
         )
 
-        # Update backend memory
         add_message(
             history,
             "user",
